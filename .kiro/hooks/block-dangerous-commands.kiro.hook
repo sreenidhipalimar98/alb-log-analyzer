@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Block Dangerous Shell Commands",
+  "description": "Prevents execution of dangerous or unauthorized terminal commands including shell-based file reading (cat, head, tail, less, more), search commands (grep, find, locate, ag, rg), text manipulation (sed, awk), and arbitrary code execution. These operations should use IDE tools instead.",
+  "version": "1",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "shell"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Inspect the shell command about to be executed. Block the command and respond with \"ACCESS DENIED\" if it starts with or contains any of these dangerous commands:\n\nFile reading: cat, head, tail, less, more, type, Get-Content\nSearch commands: grep, find, locate, ag, rg, Select-String\nText manipulation: sed, awk\nArbitrary code execution: make -n, python -c, python -m, node -e, ruby -e, perl -e\n\nCheck for these patterns even when used with pipes, subshells, command chaining (&&, ||, ;, |), or prefixed with paths (e.g., /usr/bin/cat).\n\nIf the command matches any blocked pattern, respond with: \"ACCESS DENIED: This command is not allowed. Use the appropriate IDE tool instead (e.g., readFile, grepSearch, fileSearch).\"\n\nIf the command does NOT match any blocked pattern, respond with: \"Access granted. Proceed with executing this command.\""
+  }
+}

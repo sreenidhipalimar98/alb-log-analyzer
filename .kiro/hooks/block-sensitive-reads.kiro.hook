@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Block Sensitive File Reads",
+  "description": "Prevents reading sensitive files such as .env, .tfvars, *.key, *.pem, *.p12, *.pfx, secrets.*, credentials.*, and files containing secret/password/token in their name.",
+  "version": "1",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "read"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Check if the file being read matches any sensitive file patterns: mcp.json, .env, .env.*, *.pem, *.key, *credentials*, *secret*, *token*, id_rsa, id_ed25519, *.pfx, *.p12, .npmrc, .pypirc, .docker/config.json, kubeconfig. If the file matches any of these patterns, respond with: \"ACCESS DENIED: This file is classified as sensitive and cannot be read to protect credentials and secrets.\" If the file does NOT match any sensitive pattern, respond with: \"Access granted. Proceed with reading this file.\""
+  }
+}
