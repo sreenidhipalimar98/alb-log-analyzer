@@ -22,6 +22,9 @@ __pycache__/
 # Kiro MCP config (contains tokens)
 .kiro/settings/mcp.json
 
+# Kiro setup guide (local reference only)
+KIRO_SETUP_GUIDE.md
+
 # IDE
 .vscode/
 *.code-workspace
